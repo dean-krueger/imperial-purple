@@ -15,15 +15,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
   && rm -rf /var/lib/apt/lists/*
 
-# Where we'll put the source
-WORKDIR /opt
+# Set the working directory where the mounted repo will be
+WORKDIR /workspace
 
-# Copy the source code to the container
-COPY . /opt/imperial-purple/
-
-# Navigate to the project directory and build
-WORKDIR /opt/imperial-purple
-RUN N=$(nproc) && echo "Building with N=${N} jobs..." && make -j"${N}"
-
-# Default to an interactive shell (optional)
+# Default to an interactive shell
 CMD ["/bin/bash"]
